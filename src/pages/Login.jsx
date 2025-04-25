@@ -1,12 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import useAuth from '../hooks/useAuth'
 import api from '../services/api'
+import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
 
 function Login() {
-  const { login } = useAuth()
+  const { token, login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const navigate = useNavigate()
+
+  // aplico aquí un useEffect para mantener al usuario en el panel si ya está logeado y no vuelva a la pantalla con el fformulario
+  useEffect(() => {
+    if (token) {
+      navigate('/panel');
+    }
+  }, [token, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -21,7 +32,8 @@ function Login() {
       const { usuario, token } = response.data;
 
       // login del contexto
-      login(usuario, token);
+      login(usuario, token)
+      navigate('/panel')
     } catch (err) {
       console.error('Error en el login:', err);
       setError('Email o contraseña incorrectos.');
@@ -72,6 +84,14 @@ function Login() {
             Ingresar
           </button>
         </div>
+
+        <p className="mt-4 text-center text-sm text-gray-600">
+        ¿No tienes cuenta?{' '}
+            <Link to="/register" className="text-blue-500 hover:text-blue-700 font-bold">
+                Regístrate
+            </Link>
+        </p>
+
       </form>
     </div>
   );
