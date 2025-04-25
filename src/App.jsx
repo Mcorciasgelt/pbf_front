@@ -4,11 +4,17 @@ import Panel from "./pages/Panel"
 import Register from "./pages/Register";
 import PrivateRoute from "./routes/PrivateRoute";
 import Miembros from "./pages/Miembros";
+import NuevoMiembro from "./pages/NuevoMiembro"
+import Navbar from "./components/Navbar";
+import EditarMiembro from "./pages/EditarMiembro";
 
 
 
 function App() {
   return (
+    <>
+
+    <Navbar />
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
@@ -28,7 +34,26 @@ function App() {
             <Miembros />
           </PrivateRoute>
         }/>
+
+        <Route 
+        path="/nuevo-miembro"
+        element={
+          <PrivateRoute>
+            <NuevoMiembro />
+          </PrivateRoute>
+        }/>
+
+        <Route 
+        path="/editar-miembro/:id"
+        element={
+          <PrivateRoute>
+            <EditarMiembro />
+          </PrivateRoute>
+        }/>
+
     </Routes>
+
+    </>
   );
 }
 

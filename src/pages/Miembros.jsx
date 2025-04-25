@@ -33,6 +33,24 @@ function Miembros() {
     obtenerMiembros();
   }, []);
 
+
+  const handleEliminar = async (id) => {
+    const confirmacion = window.confirm('¿Estás seguro de que quieres eliminar este miembro?');
+  
+    if (confirmacion) {
+      try {
+        await api.delete(`/users/${id}`); 
+        // Refrescamos la lista de miembros:
+        const response = await api.get('/users/family');
+        setMiembros(response.data.miembros);
+      } catch (err) {
+        console.error('Error al eliminar miembro:', err);
+        setError('No se pudo eliminar el miembro.');
+      }
+    }
+  };
+  
+
   return (
     <div className="flex h-screen">
       <div className="w-1/2 bg-gray-200 flex items-center justify-center">
@@ -63,11 +81,15 @@ function Miembros() {
               </div>
 
               <div className="space-x-2">
-                <button className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-1 px-3 rounded">
-                  Editar
+                <button 
+                    onClick={() => navigate(`/editar-miembro/${miembro._id}`)}
+                    className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-1 px-3 rounded">
+                    Editar
                 </button>
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
-                  Eliminar
+                <button 
+                    onClick={() => handleEliminar(miembro._id)}
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
+                    Eliminar
                 </button>
               </div>
             </li>
