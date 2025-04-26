@@ -52,44 +52,52 @@ function Miembros() {
   
 
   return (
-    <div className="flex h-screen">
-      <div className="w-1/2 bg-gray-200 flex items-center justify-center">
-        <p className="text-xl font-bold">Foto de perfil o familia</p>
+    <div className="flex flex-col md:flex-row h-screen">
+      
+      <div className="w-full md:w-1/2 bg-gray-200 flex items-center justify-center p-6">
+        <p className="text-xl font-bold text-center">Foto de perfil o familia</p>
       </div>
 
-      <div className="w-1/2 p-8">
-        <h1 className="text-3xl font-bold mb-6">Miembros de la familia</h1>
+      
+      <div className="w-full md:w-1/2 p-8">
+        <h1 className="text-3xl font-bold mb-6 text-center md:text-left">
+          Miembros de la familia
+        </h1>
 
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+        {error && <p className="text-red-500 mb-4 text-center md:text-left">{error}</p>}
 
-        <button
-          onClick={() => navigate('/nuevo-miembro')}
-          className="mb-6 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Añadir nuevo miembro
-        </button>
+        <div className="flex justify-center md:justify-start">
+          <button
+            onClick={() => navigate('/nuevo-miembro')}
+            className="mb-6 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Añadir nuevo miembro
+          </button>
+        </div>
 
-        <ul>
+        <ul className="space-y-4">
           {miembros.map((miembro) => (
             <li
               key={miembro._id}
-              className="mb-4 p-4 border rounded shadow flex justify-between items-center"
+              className="p-4 border rounded shadow flex flex-col md:flex-row justify-between items-center"
             >
-              <div>
+              <div className="text-center md:text-left mb-4 md:mb-0">
                 <p className="font-bold">{miembro.nombre}</p>
                 <p className="text-sm text-gray-600">{miembro.email} — {miembro.tipo}</p>
               </div>
 
               <div className="space-x-2">
                 <button 
-                    onClick={() => navigate(`/editar-miembro/${miembro._id}`)}
-                    className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-1 px-3 rounded">
-                    Editar
+                  onClick={() => navigate(`/editar-miembro/${miembro._id}`)}
+                  className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-1 px-3 rounded"
+                >
+                  Editar
                 </button>
                 <button 
-                    onClick={() => handleEliminar(miembro._id)}
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
-                    Eliminar
+                  onClick={() => handleEliminar(miembro._id)}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded"
+                >
+                  Eliminar
                 </button>
               </div>
             </li>
@@ -97,6 +105,7 @@ function Miembros() {
         </ul>
       </div>
     </div>
+
   );
 }
 

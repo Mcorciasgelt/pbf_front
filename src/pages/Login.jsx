@@ -41,58 +41,63 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-      >
-        <h2 className="text-2xl font-bold mb-6 text-center">Iniciar sesión</h2>
+    <div className="min-h-screen flex flex-col md:flex-row bg-gray-100">
+      <div className="w-full md:w-1/2 flex items-center justify-center p-6 bg-gray-200">
+        <p className="text-xl font-bold text-center">Foto de familia o logo</p>
+      </div>
 
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+      <div className="w-full md:w-1/2 flex items-center justify-center p-8">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md"
+        >
+          <h2 className="text-2xl font-bold mb-6 text-center">Iniciar sesión</h2>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Email
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
+          {error && <p className="text-red-500 mb-4">{error}</p>}
 
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Contraseña
-          </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
 
-        <div className="flex items-center justify-between">
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Ingresar
-          </button>
-        </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Contraseña
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
 
-        <p className="mt-4 text-center text-sm text-gray-600">
-        ¿No tienes cuenta?{' '}
+          <div className="flex items-center justify-between">
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+            >
+              Ingresar
+            </button>
+          </div>
+
+          <p className="mt-4 text-center text-sm text-gray-600">
+            ¿No tienes cuenta?{' '}
             <Link to="/register" className="text-blue-500 hover:text-blue-700 font-bold">
-                Regístrate
+              Regístrate
             </Link>
-        </p>
-
-      </form>
+          </p>
+        </form>
+      </div>
     </div>
   );
 }
