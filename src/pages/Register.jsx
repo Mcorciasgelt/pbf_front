@@ -45,86 +45,94 @@ function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-      >
-        <h2 className="text-2xl font-bold mb-6 text-center">Crear cuenta (Padre + Familia)</h2>
+<div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
+  <div className="w-full md:w-1/2 bg-gray-200 flex items-center justify-center p-6">
+    <p className="text-xl font-bold text-center">Logo</p>
+  </div>
 
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+  <div className="w-full md:w-1/2 flex items-center justify-center p-8">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md"
+    >
+      <h2 className="text-2xl font-bold mb-6 text-center">
+        Crear cuenta (Padre + Familia)
+      </h2>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Nombre del usuario
-          </label>
-          <input
-            type="text"
-            value={nombreUsuario}
-            onChange={(e) => setNombreUsuario(e.target.value)}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
+      {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Email
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Nombre del usuario
+        </label>
+        <input
+          type="text"
+          value={nombreUsuario}
+          onChange={(e) => setNombreUsuario(e.target.value)}
+          required
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Contraseña
-          </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            minLength={8}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Email
+        </label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
 
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Nombre de la familia
-          </label>
-          <input
-            type="text"
-            value={nombreFamilia}
-            onChange={(e) => setNombreFamilia(e.target.value)}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Contraseña
+        </label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          minLength={8}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
 
-        <div className="flex items-center justify-between">
-          <button
-            type="submit"
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Registrarse
-          </button>
-        </div>
+      <div className="mb-6">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Nombre de la familia
+        </label>
+        <input
+          type="text"
+          value={nombreFamilia}
+          onChange={(e) => setNombreFamilia(e.target.value)}
+          required
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
 
-            <p className="mt-4 text-center text-sm text-gray-600">
-            ¿Ya tienes cuenta?{' '}
-            <Link to="/login" className="text-blue-500 hover:text-blue-700 font-bold">
-                Inicia sesión aquí
-            </Link>
-            </p>
+      <div className="flex items-center justify-center">
+        <button
+          type="submit"
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+        >
+          Registrarse
+        </button>
+      </div>
 
-      </form>
-    </div>
+      <p className="mt-4 text-center text-sm text-gray-600">
+        ¿Ya tienes cuenta?{' '}
+        <Link to="/login" className="text-blue-500 hover:text-blue-700 font-bold">
+          Inicia sesión aquí
+        </Link>
+      </p>
+    </form>
+  </div>
+</div>
+
   );
 }
 
