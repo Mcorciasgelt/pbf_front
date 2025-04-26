@@ -41,74 +41,77 @@ function NuevoMiembro() {
   };
 
   return (
-    <div className="flex h-screen">
-      {/* Mitad izquierda con la foto */}
-      <div className="w-1/2 bg-gray-200 flex items-center justify-center">
-        <p className="text-xl font-bold">Foto de perfil o familia</p>
+    <div className="flex flex-col md:flex-row h-screen">
+      <div className="w-full md:w-1/2 bg-gray-200 flex items-center justify-center p-6">
+        <p className="text-xl font-bold text-center">Foto de perfil o familia</p>
       </div>
 
-      {/* Mitad derecha con el formulario */}
-      <div className="w-1/2 p-8">
-        <h1 className="text-3xl font-bold mb-6">Añadir nuevo miembro</h1>
+      <div className="w-full md:w-1/2 p-8 flex items-center justify-center">
+        <div className="w-full max-w-md">
+          <h1 className="text-3xl font-bold mb-6 text-center md:text-left">
+            Añadir nuevo miembro
+          </h1>
 
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+          {error && <p className="text-red-500 mb-4 text-center md:text-left">{error}</p>}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-gray-700">Nombre</label>
-            <input
-              type="text"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-              required
-              className="border rounded w-full py-2 px-3"
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-gray-700">Nombre</label>
+              <input
+                type="text"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                required
+                className="border rounded w-full py-2 px-3"
+              />
+            </div>
 
-          <div>
-            <label className="block text-gray-700">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="border rounded w-full py-2 px-3"
-            />
-          </div>
+            <div>
+              <label className="block text-gray-700">Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="border rounded w-full py-2 px-3"
+              />
+            </div>
 
-          <div>
-            <label className="block text-gray-700">Tipo de perfil</label>
-            <select
-              value={tipo}
-              onChange={(e) => setTipo(e.target.value)}
-              className="border rounded w-full py-2 px-3"
+            <div>
+              <label className="block text-gray-700">Tipo de perfil</label>
+              <select
+                value={tipo}
+                onChange={(e) => setTipo(e.target.value)}
+                className="border rounded w-full py-2 px-3"
+              >
+                <option value="padre">Padre</option>
+                <option value="hijo">Hijo</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-gray-700">Contraseña</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                minLength={8}
+                className="border rounded w-full py-2 px-3"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-full"
             >
-              <option value="padre">Padre</option>
-              <option value="hijo">Hijo</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-gray-700">Contraseña</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={8}
-              className="border rounded w-full py-2 px-3"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Crear miembro
-          </button>
-        </form>
+              Crear miembro
+            </button>
+          </form>
+        </div>
       </div>
     </div>
+
   );
 }
 
