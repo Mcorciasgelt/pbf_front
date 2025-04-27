@@ -20,7 +20,7 @@ function Miembros() {
   // se cargan los miembros de la familia que luego se pintarán en el html renderizado de abajo 
   // (lo había hecho con la función aquí pero lo cambié para usar el hook que creé luego useMiembros.js)
 
-  const { miembros, loading, error, refetch } = useMiembros()
+  const { miembros, loading, error, refetchMiembros } = useMiembros()
 
   const handleEliminar = async (id) => {
     const confirmacion = window.confirm('¿Estás seguro de que quieres eliminar este miembro?');
@@ -29,7 +29,7 @@ function Miembros() {
       try {
         await api.delete(`/users/${id}`); 
         // Refrescamos la lista de miembros:
-        await refetch()
+        await refetchMiembros()
       } catch (err) {
         console.error('Error al eliminar miembro:', err);
         alert('No se pudo eliminar el miembro.');

@@ -8,6 +8,8 @@ import NuevoMiembro from "./pages/NuevoMiembro"
 import Navbar from "./components/Navbar";
 import EditarMiembro from "./pages/EditarMiembro";
 import VistaLista from "./pages/VistaLista";
+import NuevaTarea from "./pages/NuevaTarea";
+import EditarTarea from "./pages/EditarTarea";
 
 
 
@@ -57,6 +59,22 @@ function App() {
         element={
           <PrivateRoute>
             <VistaLista />
+          </PrivateRoute>
+        }/>
+
+        <Route 
+        path="/nueva-tarea"
+        element={
+          <PrivateRoute>
+            <NuevaTarea />
+          </PrivateRoute>
+        }/>
+
+        <Route 
+        path="/editar-tarea/:id"
+        element={
+          <PrivateRoute>
+            <EditarTarea />
           </PrivateRoute>
         }/>
 

@@ -4,10 +4,22 @@ import 'react-calendar/dist/Calendar.css'
 import useTareas from '../hooks/useTareas';
 import { format } from 'date-fns'
 import useFiltrarTareas from '../hooks/useFiltrarTareas';
+import ModalTarea from '../components/ModalTarea';
+
 
 function VistaCalendario({ filtroHijo, filtroPadre, filtroEstado }) {
   const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date());
+  const [tareaSeleccionada, setTareaSeleccionada] = useState(null)
   const { tareas, loading, error } = useTareas()
+
+  const handleVerDetalle = (tarea) => {
+    setTareaSeleccionada(tarea);
+  };
+  
+  const handleCerrarModal = () => {
+    setTareaSeleccionada(null);
+  };
+  
 
   const tareasFiltradas = useFiltrarTareas(tareas, filtroHijo, filtroPadre, filtroEstado);
 
@@ -52,7 +64,7 @@ function VistaCalendario({ filtroHijo, filtroPadre, filtroEstado }) {
                         : 'bg-yellow-200 text-red-800 hover:bg-orange-300'}
                     `}
                     title={`${tarea.titulo} - ${tarea.hijosAsociados.map((h) => h.nombre).join(', ')}`}
-                    onClick={() => alert(`Aquí abriríamos el detalle de la tarea: ${tarea.titulo}`)}
+                    onClick={() => handleVerDetalle(tarea)}
                   >
                     <p className="truncate">{tarea.titulo}</p>
                     {tarea.hijosAsociados.length > 0 && (
@@ -71,6 +83,10 @@ function VistaCalendario({ filtroHijo, filtroPadre, filtroEstado }) {
         />
       </div>
 
+        {tareaSeleccionada && (
+        <ModalTarea tarea={tareaSeleccionada} onClose={handleCerrarModal} />
+        )}
+    
     </div>
   );
 }

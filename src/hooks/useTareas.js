@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import api from '../services/api'
 import useAuth from './useAuth'
 
@@ -8,8 +8,10 @@ function useTareas() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const obtenerTareas = async () => {
+
+    const obtenerTareas = useCallback(async () => {
+      setLoading(true);
+
       try {
         // llamada a la api de tareas para obtener todas las tareas
         const response = await api.get('/tasks', {
@@ -28,12 +30,13 @@ function useTareas() {
       } finally {
         setLoading(false);
       }
-    };
+    },[]);
 
+    useEffect(() => {
     obtenerTareas();
-  }, [token]);
+    }, [obtenerTareas]);
 
-  return { tareas, loading, error };
+  return { tareas, loading, error, refetchTareas: obtenerTareas };
 }
 
 export default useTareas;

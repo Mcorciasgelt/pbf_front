@@ -31,6 +31,7 @@ function Navbar() {
       <div className={`flex-col md:flex md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4 ${menuOpen ? 'flex' : 'hidden'} md:flex`}>
         <Link to="/panel" className="hover:text-yellow-300">Panel</Link>
         <Link to="/vistas" className="hover:text-yellow-300">Mis Vistas</Link>
+        <Link to="/nueva-tarea" className="hover:text-yellow-300">Nueva Tarea</Link>
 
         {user.tipo === "padre" && (
           <Link to="/miembros" className="hover:text-yellow-300">Mi Familia</Link> 
