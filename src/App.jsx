@@ -12,13 +12,13 @@ import NuevaTarea from "./pages/NuevaTarea";
 import EditarTarea from "./pages/EditarTarea";
 
 
-
 function App() {
   return (
     <>
 
     <Navbar />
     <Routes>
+      <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
