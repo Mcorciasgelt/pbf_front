@@ -52,13 +52,13 @@ function App() {
           </PrivateRoute>
         }/>
 
-{/*         <Route 
+        <Route 
         path="/vistas"
         element={
           <PrivateRoute>
             <VistaLista />
           </PrivateRoute>
-        }/> */}
+        }/>
 
     </Routes>
 
