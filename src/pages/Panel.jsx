@@ -1,11 +1,15 @@
+import { useState } from 'react';
 import useTareas from '../hooks/useTareas'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import api from '../services/api';
 
 function Panel() {
   const { user } = useAuth();
+  const [mensaje, setMensaje] = useState('')
+  const [errorMail, setErrorMail] = useState('')
   const { tareas, loading, error } = useTareas()
   const hoy = new Date()
 
@@ -21,6 +25,39 @@ function Panel() {
   const formatearFecha = (fecha) =>
     format(new Date(fecha), "EEEE dd/MM/yyyy", { locale: es })
 
+  // envío de emails con botón (desistí del cron)
+
+  const handleEnviarDiario = async () => {
+    try {
+      const response = await api.post('/emails/diario', { padreId: user.id });
+      setMensaje(response.data.mensaje);
+      setErrorMail('');
+      alert("Email diario enviado correctamente")
+
+    } catch (err) {
+      setErrorMail('');
+      console.error('Error al enviar el correo diario:', err);
+      setMensaje('');
+      setErrorMail('Error al enviar el correo diario');
+      alert(errorMail)
+    }
+  };
+  
+  const handleEnviarSemanal = async () => {
+    try {
+      const response = await api.post('/emails/semanal', { padreId: user.id });
+      setMensaje(response.data.mensaje);
+      setErrorMail('');
+      alert("Email semanal enviado correctamente")
+    } catch (err) {
+      setErrorMail('');
+      console.error('Error al enviar el correo semanal:', err);
+      setMensaje('');
+      setErrorMail('Error al enviar el correo semanal');
+      alert(errorMail)
+    }
+  };
+
   return (
 
     <div className="flex flex-col md:flex-row h-screen">
@@ -32,6 +69,26 @@ function Panel() {
         <h1 className="text-4xl font-bold text-blue-600 mb-6 text-center">
           ¡Hola, {user?.nombre}!
         </h1>
+
+        {user?.tipo === 'padre' && (
+          <div className="mt-6 flex flex-col space-y-4">
+            <button
+              onClick={handleEnviarDiario}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              📬 Enviar Resumen diario
+            </button>
+            <button
+              onClick={handleEnviarSemanal}
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            >
+              🗓️ Enviar Resumen semanal
+            </button>
+
+            {mensaje && <p className="text-green-600 mt-2">{mensaje}</p>}
+            {error && <p className="text-red-600 mt-2">{error}</p>}
+          </div>
+        )}
 
         <div className="w-full max-w-md bg-white shadow-md rounded p-4">
           <h2 className="text-xl font-bold mb-4 text-center">Próximas tareas</h2>
