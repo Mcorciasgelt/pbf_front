@@ -4,6 +4,9 @@ import useTareas from '../hooks/useTareas'
 import useMiembros from '../hooks/useMiembros'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
+import VistaCalendario from './VistaCalendario'
+import useFiltrarTareas from '../hooks/useFiltrarTareas'
+
 
 function VistaLista() {
   const { user } = useAuth()
@@ -19,28 +22,9 @@ function VistaLista() {
   const [tareasFiltradas, setTareasFiltradas] = useState([])
 
   useEffect(() => {
-    let filtradas = tareas;
-
-    if (filtroHijo !== 'todos') {
-      filtradas = filtradas.filter((tarea) =>
-        tarea.hijosAsociados.some((hijo) => hijo._id === filtroHijo)
-      );
-    }
-
-    if (filtroPadre !== 'todos') {
-      filtradas = filtradas.filter((tarea) =>
-        tarea.padreResponsable?._id === filtroPadre
-      );
-    }
-
-    if (filtroEstado === 'completadas') {
-      filtradas = filtradas.filter((tarea) => tarea.completada === true);
-    } else if (filtroEstado === 'pendientes') {
-      filtradas = filtradas.filter((tarea) => tarea.completada === false);
-    }
-
-    setTareasFiltradas(filtradas)
-  }, [tareas, filtroHijo, filtroPadre, filtroEstado])
+    const filtradas = useFiltrarTareas(tareas, filtroHijo, filtroPadre, filtroEstado);
+    setTareasFiltradas(filtradas);
+  }, [tareas, filtroHijo, filtroPadre, filtroEstado]);
 
   const formatearFecha = (fecha) =>
     format(new Date(fecha), "EEEE dd/MM/yyyy", { locale: es })
@@ -106,7 +90,7 @@ function VistaLista() {
                 <option value="completadas">Completadas</option>
             </select>
 
-            <boton
+            <button
                 onClick={() => {
                     setFiltroPadre('todos')
                     setFiltroHijo('todos')
@@ -115,7 +99,7 @@ function VistaLista() {
                 className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold text-xl py-2 px-4 rounded"
                 >
                     Limpiar Filtros
-            </boton>
+            </button>
 
         </div>
     
@@ -153,7 +137,11 @@ function VistaLista() {
       )}
       </>
     ) : (
-        <p className='text-center text-gray-500'>Vista Calendario en construcción</p>
+        <VistaCalendario
+        filtroHijo={filtroHijo}
+        filtroPadre={filtroPadre}
+        filtroEstado={filtroEstado}
+         />
     )}
     </div>
   );
