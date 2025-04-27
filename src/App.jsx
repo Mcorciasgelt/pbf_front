@@ -7,6 +7,7 @@ import Miembros from "./pages/Miembros";
 import NuevoMiembro from "./pages/NuevoMiembro"
 import Navbar from "./components/Navbar";
 import EditarMiembro from "./pages/EditarMiembro";
+import VistaLista from "./pages/VistaLista";
 
 
 
@@ -50,6 +51,14 @@ function App() {
             <EditarMiembro />
           </PrivateRoute>
         }/>
+
+{/*         <Route 
+        path="/vistas"
+        element={
+          <PrivateRoute>
+            <VistaLista />
+          </PrivateRoute>
+        }/> */}
 
     </Routes>
 

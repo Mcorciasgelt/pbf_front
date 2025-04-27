@@ -30,7 +30,6 @@ function Navbar() {
       </button>
       <div className={`flex-col md:flex md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4 ${menuOpen ? 'flex' : 'hidden'} md:flex`}>
         <Link to="/panel" className="hover:text-yellow-300">Panel</Link>
-        <Link to="/perfil" className="hover:text-yellow-300">Mi Perfil</Link>
         <Link to="/vistas" className="hover:text-yellow-300">Mis Vistas</Link>
 
         {user.tipo === "padre" && (

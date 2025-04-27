@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import api from '../services/api'
 import { useNavigate } from 'react-router-dom'
+import useMiembros from '../hooks/useMiembros';
 
 function Miembros() {
   const { token, user } = useAuth();
   const navigate = useNavigate();
-  const [miembros, setMiembros] = useState([]);
-  const [error, setError] = useState('');
 
   // aseguramos que el usuario que está ingresando sea padre
   useEffect(() => {
@@ -18,21 +17,10 @@ function Miembros() {
     }
   }, [user, navigate]);
 
-  // se cargan los miembros de la familia que luego se pintarán en el html renderizado de abajo
-  useEffect(() => {
-    const obtenerMiembros = async () => {
-      try {
-        const response = await api.get('/users/family')
-        setMiembros(response.data.miembros);
-      } catch (err) {
-        console.error('Error al obtener miembros:', err);
-        setError('No se pudieron cargar los miembros.');
-      }
-    };
+  // se cargan los miembros de la familia que luego se pintarán en el html renderizado de abajo 
+  // (lo había hecho con la función aquí pero lo cambié para usar el hook que creé luego useMiembros.js)
 
-    obtenerMiembros();
-  }, []);
-
+  const { miembros, loading, error, refetch } = useMiembros()
 
   const handleEliminar = async (id) => {
     const confirmacion = window.confirm('¿Estás seguro de que quieres eliminar este miembro?');
@@ -41,11 +29,10 @@ function Miembros() {
       try {
         await api.delete(`/users/${id}`); 
         // Refrescamos la lista de miembros:
-        const response = await api.get('/users/family');
-        setMiembros(response.data.miembros);
+        await refetch()
       } catch (err) {
         console.error('Error al eliminar miembro:', err);
-        setError('No se pudo eliminar el miembro.');
+        alert('No se pudo eliminar el miembro.');
       }
     }
   };
@@ -64,6 +51,7 @@ function Miembros() {
           Miembros de la familia
         </h1>
 
+        {loading && <p className="text-gray-600 mb-4 text-center md:text-left">Cargando miembros...</p>}
         {error && <p className="text-red-500 mb-4 text-center md:text-left">{error}</p>}
 
         <div className="flex justify-center md:justify-start">
